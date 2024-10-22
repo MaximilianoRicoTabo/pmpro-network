@@ -338,7 +338,7 @@ function pmpron_pmpro_membership_level_after_other_settings() {
 		$pmpro_site_credits = '';
 	}
 	?>
-	<h2 class="topborder"><?php esc_html_e( 'Site Credits', 'pmpro-network' ); ?></h2>
+	<h3 class="topborder"><?php esc_html_e( 'Site Credits', 'pmpro-network' ); ?></h3>
 	<table class="form-table">
 		<tbody>
 			<tr>
