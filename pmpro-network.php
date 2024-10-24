@@ -68,9 +68,12 @@ add_action('init', 'pmpron_init');
 	First we need to add some fields to the checkout page.
 */
 //add the fields to the form 
-function pmpron_pmpro_checkout_boxes() 
-{
-	global $current_user, $wpdb, $pmpro_network_non_site_levels;
+function pmpron_pmpro_checkout_boxes() {
+	global $current_user, $wpdb, $pmpro_network_non_site_levels, $current_site;
+	//Bail if it's not a multiste install
+	if(! isset( $current_site ) ) {
+		return;
+	}
 
 	$level_id = null;
 
@@ -156,7 +159,6 @@ function pmpron_pmpro_checkout_boxes()
 					<label for="sitename"><?php esc_html_e( 'Site Name', 'pmpro-network' ); ?></label>
 					<input id="sitename" name="sitename" type="text" class="input" size="30" value="<?php echo esc_attr(stripslashes($sitename)); ?>" /><span class="pmpro_asterisk"> <abbr title="Required Field">*</abbr></span>				
 					<?php
-						global $current_site;
 						$site_domain = preg_replace( '|^www\.|', '', $current_site->domain );
 					
 						if ( !is_subdomain_install() )
@@ -326,6 +328,11 @@ add_action( 'pmpro_save_membership_level', 'pmpron_pmpro_save_membership_level' 
 
 //Display the setting for the number of site credits on the Edit Membership Level page
 function pmpron_pmpro_membership_level_after_other_settings() {
+	global $current_site;
+	//Bail if it's not a multisite install
+	if(! isset( $current_site ) ) {
+		return;
+	}
 	$level_id = intval($_REQUEST['edit']);
 	if($level_id > 0) {
 		//want to specifically get the value from options here
